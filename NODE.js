@@ -1,10 +1,11 @@
 class Node{
-    constructor(key,parent== null,leftChild== null,rightChild== null){
+    constructor(key,parent == null,leftChild == null,rightChild == null){
         this.key=key;
         this.parent=parent;
         this.leftChild=leftChild;
         this.rightChild=rightChild;
     }
+    //revisar(falta um return)
     find(key){
         if(this.key==key){
             return this;
@@ -18,12 +19,13 @@ class Node{
                 if(this.rightChild !== null){
                     return this.rightChild.find(key);
 
-                    }else{return null;
+                }else{
+                    return null;
 
                     }
                 }
      }
-
+//revisar
         add(Node){
         if(Node.key < this.key){
             if(this.leftChild == null){
@@ -38,20 +40,22 @@ class Node{
                 Node.parent=this;
             }else this.rightChild.add(Node);
         }
+        /* algoritimos de percurso só estão corretos para imprimir
+        alterar depois para receber operação como parametro e realizar a operação nos algoritimos */
 
-        inOrder(operation){
+        inOrder(){
          if(this.leftChild !== null ){
              this.leftChild.inOrder();
-             operation();
+             console.log(this.key);
          }
          if(this.rightChild !== null){
              this.rightChild.inOrder();
          }
 
      }
-
-     preOrder(operation){
-        operation();
+        //correto
+     preOrder(){
+        console.log(this.key);
         if(this.leftChild !== null){
             this.leftChild.preOrder();
         }
@@ -59,33 +63,33 @@ class Node{
             this.rightChild.preOrder();
         }
     }
-
-     posOrder(operation){
+    //correto
+     posOrder(){
         if (this.leftChild !== null){
             this.leftChild.posOrder();
         }
         if (this.rightChild !== null){
             this.rightChild.posOrder();
         }
-        operation();
+        console.log(this.key);
     }        
-    
+    //correto
     hasLeftChild(){
         return this.leftChild !== null;
     }
-    
+    //correto
     hasRightChild(){
         return this.rightChild !== null;
     }
-    
+    //correto
     hasBothChildren(){
         return(this.leftChild !== null && this.rightChild !== null);
     }
-    
+    //correto
     isLeaf(){
         return(this.leftChild == null && this.rightChild == null);
     }
-     
+     //revisar
     minimum(){
         let min = this;
         while(min.hasLeftChild()){
@@ -93,7 +97,7 @@ class Node{
         }
         return min;
     }
-    
+    //revisar
     maximum(){
         let max = this;
         while(max.hasRightChild()){
@@ -101,41 +105,38 @@ class Node{
         }
         return max;
     }
-    
+    //correto
    size(){
-    let acumulador = 0;
-    let tamanho = this;
-    if(this !== null){
-        acumulador++;
+       //ja se assume que começa com 1 para evitar paradoxos
+    let total = 1;
+
+    if(this.leftChild !== null ){
+       total = total + this.leftChild.size();
     }
-    //verificar se um while usando both nao resolveria tendo em vista que ele verifica os dois juntamente
-    while(tamanho.hasLeftChild()){
-        acumulador++;
+    if(this.rightChild !== null){
+       total = total + this.rightChild.size();
     }
-    while(tamanho.hasRightChild()){
-        acumulador++
-    }
-    return acumulador;
-    
+      return total;
     }
     
+    //correto
     sum(){
-      let soma = this;
-      let resultadoEsquerda=0;
-      let resultadoDireita=0;
-      while(soma.hasLeftChild){
-          soma.key= soma.key++;
-        }
-      while(soma.hasRightChild){
-          soma.key=soma.key++;
-      }
-    return soma.key;
+      let soma = this.key;
       
+      if(this.leftChild !== null){
+       soma = soma + this.leftChild.sum();
+      }
+      if(this.rightChild !== null){
+          soma = this.rightChild.sum();
+      }
+
+    
+    return this.key;
+}
 
 }
 
-
-   const keys =[30,17,33,20,31];
+   const keys =[10, 7, 18, 9, 3, 8, 1, 11];
     
     let root = null;
     for(let i=0; i < keys.length; i++){
@@ -144,5 +145,9 @@ class Node{
     else{
         root.add(new Node(key[i]));
         
-    }
+ }
 }
+ }
+  //let foundit = root.find (11);
+  console.log (root.size());
+
