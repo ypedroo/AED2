@@ -1,153 +1,198 @@
-class Node{
-    constructor(key,parent == null,leftChild == null,rightChild == null){
-        this.key=key;
-        this.parent=parent;
-        this.leftChild=leftChild;
-        this.rightChild=rightChild;
+class Node {
+    constructor(key, parent = null, leftChild = null, rightChild = null) {
+        this.key = key;
+        this.parent = parent;
+        this.leftChild = leftChild;
+        this.rightChild = rightChild;
     }
-    //revisar(falta um return)
-    find(key){
-        if(this.key==key){
+    //revisar
+    find(key) {
+        if (this.key == key) {
             return this;
-        }else{
-            if(key<this.key){
-                if(this.leftChild == null){
-                    return this.leftChild.find(key);}
-                    else return null;
+        } else {
+            if (key < this.key) {
+                if (this.leftChild == null) {
+                    return this.leftChild.find(key);
+                } else {
+                    return null;
                 }
-            }else{
-                if(this.rightChild !== null){
+            } else {
+                if (this.rightChild !== null) {
                     return this.rightChild.find(key);
 
-                }else{
+                } else {
                     return null;
 
-                    }
                 }
-     }
-//revisar
-        add(Node){
-        if(Node.key < this.key){
-            if(this.leftChild == null){
-             this.leftChild = Node;
-             //aqui recebe a raiz this representa o node inteiro    
-             Node.parent=this;                   
             }
-            else
-             this.leftChild.add(Node);}
-            if(this.rightChild == null){
-                this.rightChild=Node;
-                Node.parent=this;
-            }else this.rightChild.add(Node);
         }
-        /* algoritimos de percurso só estão corretos para imprimir
-        alterar depois para receber operação como parametro e realizar a operação nos algoritimos */
+        // return this;
+    }
+    //revisar
+    add(node) {
+        if (node.key < this.key) {
+            if (this.leftChild == null) {
+                this.leftChild = node;
+                //aqui recebe a raiz this representa o node inteiro    
+                this.leftChild.parent = this;
+            }
+            else this.leftChild.add(node);
+        } else {
+            if (this.rightChild == null) {
+                this.rightChild = node;
+                node.parent = this;
+            }
+            else this.rightChild.add(node);
+        }
+    }
 
-        inOrder(){
-         if(this.leftChild !== null ){
-             this.leftChild.inOrder();
-             console.log(this.key);
-         }
-         if(this.rightChild !== null){
-             this.rightChild.inOrder();
-         }
+    remove(key) {
+        let found = this.find(key);
+        if (found !== null) {
+            if (found.isLeaf()) {
+                if (found.isLeftChild()) {
+                    found.parent.leftChild = null;
+                } else {
+                    found.parent.rightChild = null;
+                }
+                found.parent = null;
+            } else if (found.hasBothChildren()) {
+            
+            //Completar os outros 2 casos
+            } else {
+                if (found.isLeftChild()) {
+                    if (found.hasLeftChild()) {
+                        found.parent.leftChild = found.leftChild;
+                        found.leftChild.parent = found.parent;
+                        found.leftChild = null;
+                        
+                    } else {
+                        found.parent.rightChild = found.rightChild;
+                        found.rightChild.parent = found.parent;
+                        found.rightChild = null;
+                    }
+                    found.parent = null;
+                }
+                
 
-     }
-        //correto
-     preOrder(){
+            }
+        }
+    }
+
+    inOrder() {
+        if (this.leftChild !== null) {
+            this.leftChild.inOrder();
+            console.log(this.key);
+        }
+        if (this.rightChild !== null) {
+            this.rightChild.inOrder();
+        }
+
+    }
+    //correto
+    preOrder() {
         console.log(this.key);
-        if(this.leftChild !== null){
+        if (this.leftChild !== null) {
             this.leftChild.preOrder();
         }
-        if(this.rightChild !== null){
+        if (this.rightChild !== null) {
             this.rightChild.preOrder();
         }
     }
     //correto
-     posOrder(){
-        if (this.leftChild !== null){
+    posOrder() {
+        if (this.leftChild !== null) {
             this.leftChild.posOrder();
         }
-        if (this.rightChild !== null){
+        if (this.rightChild !== null) {
             this.rightChild.posOrder();
         }
         console.log(this.key);
-    }        
+    }
     //correto
-    hasLeftChild(){
+    hasLeftChild() {
         return this.leftChild !== null;
     }
     //correto
-    hasRightChild(){
+    hasRightChild() {
         return this.rightChild !== null;
     }
-    //correto
-    hasBothChildren(){
-        return(this.leftChild !== null && this.rightChild !== null);
+
+    isLeftChild() {
+        (this.parent !== null && this.parent.leftChild !== null);
+    }
+
+    isRightChild() {
+        (this.parent !== null && this.parent.rightChild !== null);
     }
     //correto
-    isLeaf(){
-        return(this.leftChild == null && this.rightChild == null);
+    hasBothChildren() {
+        return (this.leftChild !== null && this.rightChild !== null);
     }
-     //revisar
-    minimum(){
+    //correto
+    isLeaf() {
+        return (this.leftChild == null && this.rightChild == null);
+    }
+    //revisar
+    minimum() {
         let min = this;
-        while(min.hasLeftChild()){
+        while (min.hasLeftChild()) {
             min = min.leftChild;
         }
         return min;
     }
     //revisar
-    maximum(){
+    maximum() {
         let max = this;
-        while(max.hasRightChild()){
-            max= max.rightChild;
+        while (max.hasRightChild()) {
+            max = max.rightChild;
         }
         return max;
     }
     //correto
-   size(){
-       //ja se assume que começa com 1 para evitar paradoxos
-    let total = 1;
+    size() {
+        //ja se assume que começa com 1 para evitar paradoxos
+        let total = 1;
 
-    if(this.leftChild !== null ){
-       total = total + this.leftChild.size();
+        if (this.leftChild !== null) {
+            total = total + this.leftChild.size();
+        }
+        if (this.rightChild !== null) {
+            total = total + this.rightChild.size();
+        }
+        return total;
     }
-    if(this.rightChild !== null){
-       total = total + this.rightChild.size();
-    }
-      return total;
-    }
-    
+
     //correto
-    sum(){
-      let soma = this.key;
-      
-      if(this.leftChild !== null){
-       soma = soma + this.leftChild.sum();
-      }
-      if(this.rightChild !== null){
-          soma = this.rightChild.sum();
-      }
+    sum() {
+        let soma = this.key;
 
-    
-    return this.key;
+        if (this.leftChild !== null) {
+            soma = soma + this.leftChild.sum();
+        }
+        if (this.rightChild !== null) {
+            soma = this.rightChild.sum();
+        }
+
+
+        return this.key;
+    }
+
 }
 
-}
+const key = [10, 7, 18, 9, 3, 8, 1, 11];
 
-   const keys =[10, 7, 18, 9, 3, 8, 1, 11];
-    
-    let root = null;
-    for(let i=0; i < keys.length; i++){
-    if(root==null){
-     root=new Node(keys[i]);
-    else{
+let root = null;
+for (let i = 0; i < key.length; i++) {
+    if (root == null) {
+        root = new Node(key[i]);
+    } else {
         root.add(new Node(key[i]));
-        
- }
+
+    }
 }
- }
-  //let foundit = root.find (11);
-  console.log (root.size());
+
+let foundit = root.find(11);
+console.log(root.size());
+console.log(root.find(8));
 
