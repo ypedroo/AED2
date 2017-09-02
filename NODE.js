@@ -9,7 +9,7 @@ class Node {
     find(key) {
         if (this.key == key) {
             return this;
-            
+            console.log("nó achado");
         } else {
             if (key < this.key) {
                 if (this.leftChild !== null) {
@@ -58,34 +58,34 @@ class Node {
                 }
                 found.parent = null;
             } else if (found.hasBothChildren()) {
-               console.log("A implementar");
-            //Completar os outros 2 casos
+                console.log("A implementar");
+                //Completar os outros 2 casos
             } else {
                 if (found.isLeftChild()) {
                     if (found.hasLeftChild()) {
                         found.parent.leftChild = found.leftChild;
                         found.leftChild.parent = found.parent;
                         found.leftChild = null;
-                        
+
                     } else {
                         found.parent.rightChild = found.rightChild;
                         found.rightChild.parent = found.parent;
                         found.rightChild = null;
                     }
                     //verificar se esse if e necessario
-                }else if(found.isRightChild()){
-                    if(found.hasLeftChild()){
+                } else if (found.isRightChild()) {
+                    if (found.hasLeftChild()) {
                         found.parent.leftChild = found.leftChild;
                         found.leftChild.parent = found.parent;
                         found.leftChild = null;
-                    }else{
+                    } else {
                         found.parent.rightChild = found.rightChild;
                         found.rightChild.parent = found.parent;
                         found.rightChild = null;
                     }
                 }
-                
-      
+
+
             }
             found.parent = null;
             console.log("removido com sucesso");
@@ -176,15 +176,15 @@ class Node {
         return total;
     }
 
-    //correto
+    //correto*
     sum() {
         let soma = this.key;
 
         if (this.leftChild !== null) {
             soma = soma + this.leftChild.sum();
-        }
-        if (this.rightChild !== null) {
-            soma = this.rightChild.sum();
+        } 
+       if (this.rightChild !== null) {
+            soma = soma + this.rightChild.sum();
         }
 
 
@@ -205,8 +205,13 @@ for (let i = 0; i < key.length; i++) {
     }
 }
 
-let foundit = root.find(11);
+//let foundit = root.find(11);
+//root.add = new Node(30);
 console.log(root.size());
-console.log(root.find(19));
-console.log (root.remove(7));
+
+console.log(root.sum());
+
+console.log(root.find(30));
+
+console.log(root.remove(3));
 
