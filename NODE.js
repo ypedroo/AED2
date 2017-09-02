@@ -9,9 +9,10 @@ class Node {
     find(key) {
         if (this.key == key) {
             return this;
+            
         } else {
             if (key < this.key) {
-                if (this.leftChild == null) {
+                if (this.leftChild !== null) {
                     return this.leftChild.find(key);
                 } else {
                     return null;
@@ -57,7 +58,7 @@ class Node {
                 }
                 found.parent = null;
             } else if (found.hasBothChildren()) {
-            
+               console.log("A implementar");
             //Completar os outros 2 casos
             } else {
                 if (found.isLeftChild()) {
@@ -71,11 +72,23 @@ class Node {
                         found.rightChild.parent = found.parent;
                         found.rightChild = null;
                     }
-                    found.parent = null;
+                    //verificar se esse if e necessario
+                }else if(found.isRightChild()){
+                    if(found.hasLeftChild()){
+                        found.parent.leftChild = found.leftChild;
+                        found.leftChild.parent = found.parent;
+                        found.leftChild = null;
+                    }else{
+                        found.parent.rightChild = found.rightChild;
+                        found.rightChild.parent = found.parent;
+                        found.rightChild = null;
+                    }
                 }
                 
-
+      
             }
+            found.parent = null;
+            console.log("removido com sucesso");
         }
     }
 
@@ -194,5 +207,6 @@ for (let i = 0; i < key.length; i++) {
 
 let foundit = root.find(11);
 console.log(root.size());
-console.log(root.find(8));
+console.log(root.find(19));
+console.log (root.remove(7));
 
