@@ -132,11 +132,11 @@ class Node {
     }
 
     isLeftChild() {
-        (this.parent !== null && this.parent.leftChild !== null);
+       return (this.parent !== null && this.parent.leftChild !== null);
     }
 
     isRightChild() {
-        (this.parent !== null && this.parent.rightChild !== null);
+       return (this.parent !== null && this.parent.rightChild !== null);
     }
     //correto
     hasBothChildren() {
@@ -176,7 +176,7 @@ class Node {
         return total;
     }
 
-    //correto*
+    //correto
     sum() {
         let soma = this.key;
 
