@@ -73,7 +73,7 @@ class Node {
                         found.rightChild = null;
                     }
                     //verificar se esse if e necessario
-                } else if (found.isRightChild()) {
+                } else {
                     if (found.hasLeftChild()) {
                         found.parent.leftChild = found.leftChild;
                         found.leftChild.parent = found.parent;
@@ -182,13 +182,13 @@ class Node {
 
         if (this.leftChild !== null) {
             soma = soma + this.leftChild.sum();
-        } 
-       if (this.rightChild !== null) {
+        }
+        if (this.rightChild !== null) {
             soma = soma + this.rightChild.sum();
         }
 
 
-        return this.key;
+        return soma;
     }
 
 }
