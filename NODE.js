@@ -182,7 +182,7 @@ class Node {
 
         if (this.leftChild !== null) {
             soma = soma + this.leftChild.sum();
-        } 
+     5   } 
        if (this.rightChild !== null) {
             soma = soma + this.rightChild.sum();
         }
