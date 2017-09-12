@@ -95,8 +95,9 @@ class Node {
     inOrder() {
         if (this.leftChild !== null) {
             this.leftChild.inOrder();
-            console.log(this.key);
+
         }
+        console.log(this.key);
         if (this.rightChild !== null) {
             this.rightChild.inOrder();
         }
@@ -132,11 +133,11 @@ class Node {
     }
 
     isLeftChild() {
-       return (this.parent !== null && this.parent.leftChild !== null);
+        return (this.parent !== null && this.parent.leftChild !== null);
     }
 
     isRightChild() {
-       return (this.parent !== null && this.parent.rightChild !== null);
+        return (this.parent !== null && this.parent.rightChild !== null);
     }
     //correto
     hasBothChildren() {
@@ -182,8 +183,9 @@ class Node {
 
         if (this.leftChild !== null) {
             soma = soma + this.leftChild.sum();
-     5   } 
-       if (this.rightChild !== null) {
+            5
+        }
+        if (this.rightChild !== null) {
             soma = soma + this.rightChild.sum();
         }
 
