@@ -73,7 +73,7 @@ class Node {
                         found.rightChild = null;
                     }
                     //verificar se esse if e necessario
-                } else if (found.isRightChild()) {
+                } else {
                     if (found.hasLeftChild()) {
                         found.parent.leftChild = found.leftChild;
                         found.leftChild.parent = found.parent;
@@ -132,11 +132,11 @@ class Node {
     }
 
     isLeftChild() {
-        (this.parent !== null && this.parent.leftChild !== null);
+       return (this.parent !== null && this.parent.leftChild !== null);
     }
 
     isRightChild() {
-        (this.parent !== null && this.parent.rightChild !== null);
+       return (this.parent !== null && this.parent.rightChild !== null);
     }
     //correto
     hasBothChildren() {
@@ -176,7 +176,7 @@ class Node {
         return total;
     }
 
-    //correto*
+    //correto
     sum() {
         let soma = this.key;
 
@@ -188,7 +188,7 @@ class Node {
         }
 
 
-        return this.key;
+        return soma;
     }
 
 }
