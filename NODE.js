@@ -57,6 +57,7 @@ class Node {
                 } else {
                     found.parent.rightChild = null;
                 }
+
                 found.parent = null;
             } else if (found.hasBothChildren()) {
                 let sucessor;
@@ -111,8 +112,8 @@ class Node {
                         }
                     }
                 }
-            } else { }
-        }
+            }
+        
 
     } else {
     if (found.isLeftChild()) {
