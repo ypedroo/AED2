@@ -112,36 +112,36 @@ class Node {
                         }
                     }
                 }
+            }else {
+                if (found.isLeftChild()) {
+                    if (found.hasLeftChild()) {
+                        found.parent.leftChild = found.leftChild;
+                        found.leftChild.parent = found.parent;
+                        found.leftChild = null;
+            
+                    } else {
+                        found.parent.rightChild = found.rightChild;
+                        found.rightChild.parent = found.parent;
+                        found.rightChild = null;
+                    }
+                    //verificar se esse if e necessario
+                } else {
+                    if (found.hasLeftChild()) {
+                        found.parent.leftChild = found.leftChild;
+                        found.leftChild.parent = found.parent;
+                        found.leftChild = null;
+                    } else {
+                        found.parent.rightChild = found.rightChild;
+                        found.rightChild.parent = found.parent;
+                        found.rightChild = null;
+                    }
+                }
+            
+            
             }
         
 
-    } else {
-    if (found.isLeftChild()) {
-        if (found.hasLeftChild()) {
-            found.parent.leftChild = found.leftChild;
-            found.leftChild.parent = found.parent;
-            found.leftChild = null;
-
-        } else {
-            found.parent.rightChild = found.rightChild;
-            found.rightChild.parent = found.parent;
-            found.rightChild = null;
-        }
-        //verificar se esse if e necessario
-    } else {
-        if (found.hasLeftChild()) {
-            found.parent.leftChild = found.leftChild;
-            found.leftChild.parent = found.parent;
-            found.leftChild = null;
-        } else {
-            found.parent.rightChild = found.rightChild;
-            found.rightChild.parent = found.parent;
-            found.rightChild = null;
-        }
-    }
-
-
-}
+    } 
 found.parent = null;
 console.log("removido com sucesso");
             }
